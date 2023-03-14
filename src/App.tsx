@@ -10,7 +10,7 @@ interface FirstCom {
   Company: CompanyType[]
 }
 
-interface trackingType {
+interface TrackingType {
   kind: string
   manName: string
   telno: string
@@ -19,7 +19,7 @@ interface trackingType {
 }
 
 interface FirstDeliveryInfo {
-  trackingDetails: trackingType[]
+  trackingDetails: TrackingType[]
 }
 
 function App() {
@@ -27,6 +27,8 @@ function App() {
   const [deliveryInfo, setDeliveryInfo] = useState<FirstDeliveryInfo>()
   const [code, setCode] = useState('')
   const [delCode, setDelCode] = useState('04')
+  const BaseURL = 'https://info.sweettracker.co.kr/api/v1/'
+  const apiKey = 'fwM3wePoMWuqF5k3n1f30Q'
 
 
   useEffect(() => {
@@ -34,10 +36,9 @@ function App() {
   },[])
   
   const getCompanyList = async() => {
-    const data = await fetch("https://info.sweettracker.co.kr/api/v1/companylist?t_key=fwM3wePoMWuqF5k3n1f30Q")
+    const data = await fetch(`${BaseURL}companylist?t_key=${apiKey}`)
     const json = await data.json()
 
-    console.log(json)
     setCompanyList(json)
   }
 
@@ -47,12 +48,10 @@ function App() {
       return
     }
     
-    const data = await fetch(`https://info.sweettracker.co.kr/api/v1/trackingInfo?t_code=${delCode}&t_invoice=${code}&t_key=omFmQJIo3SaZlY7dIaxjvw`)
+    const data = await fetch(`${BaseURL}trackingInfo?t_code=${delCode}&t_invoice=${code}&t_key=${apiKey}`)
     const json = await data.json()
 
     setDeliveryInfo(json)
-
-    console.log(json)
   }
 
   const handlerFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
