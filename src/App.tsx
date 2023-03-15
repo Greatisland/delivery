@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import Modal from './components/Modal';
@@ -21,7 +20,7 @@ const firebaseConfig = {
   messagingSenderId: "726174120186",
   appId: "1:726174120186:web:0a86e8bf3a53a4fd9cf143",
   measurementId: "G-YH4BN75XTQ"
-};
+}
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -95,8 +94,6 @@ const InfoBox = styled.div`
     font-size: 13px;
   }  
 `
-
-
 
 interface CompanyType {
   Code: string
@@ -240,8 +237,8 @@ function App() {
           {deliveryInfo?.trackingDetails?.map((data, i) => (
             <ul key={i}>
               <li>배송상태 | {data.kind}</li>
-              {data.manName?<li>배송기사 | {data.manName}</li> : null}
-              {data.telno?<li>전화번호 | {data.telno}</li> : null}
+              {data.manName&&<li>배송기사 | {data.manName}</li>}
+              {data.telno&&<li>전화번호 | {data.telno}</li>}
               <li>배송시간 | {data.timeString}</li>
               <li>위치  | {data.where}</li>
             </ul>

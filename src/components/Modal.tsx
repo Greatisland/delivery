@@ -2,6 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 
+interface ModalType {
+  isModal: boolean
+}
+
+
 const ModalBox = styled.div`
   width: 1050px;
   height: 1000px;
@@ -14,10 +19,10 @@ const ModalBox = styled.div`
 `
 
 
-export default function Modal(){
+export default function Modal(props : ModalType){
 
   const closeModal = () => {
-    setModal(false)
+    setIsModal(false)
   }
 
   return (
