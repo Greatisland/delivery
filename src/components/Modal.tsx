@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 
-interface ModalType {
-  isModal: boolean
+interface toggleModal {
+  toggleModal: () => void
 }
 
 
@@ -19,15 +19,14 @@ const ModalBox = styled.div`
 `
 
 
-export default function Modal(props : ModalType){
-
-  const closeModal = () => {
-    setIsModal(false)
-  }
+export default function Modal(toggleModal : props){
 
   return (
     <>
-      <ModalBox></ModalBox>
+      <ModalBox onClick={(e: React.MouseEvent) => {
+        e.preventDefault()
+        toggleModal&&toggleModal()
+      }}></ModalBox>
     </>
   )
 }
