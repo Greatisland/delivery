@@ -2,10 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 
-interface toggleModal {
+interface ToggleModal {
   toggleModal: () => void
 }
-
 
 const ModalBox = styled.div`
   width: 1050px;
@@ -19,13 +18,13 @@ const ModalBox = styled.div`
 `
 
 
-export default function Modal(toggleModal : props){
+export default function Modal(toggleModal : ToggleModal){
 
   return (
     <>
       <ModalBox onClick={(e: React.MouseEvent) => {
         e.preventDefault()
-        toggleModal&&toggleModal()
+        toggleModal&&toggleModal.toggleModal()
       }}></ModalBox>
     </>
   )

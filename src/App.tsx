@@ -1,30 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import Modal from './components/Modal';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAXg2XR-U7NJXL2-WoGklp3lTL9o4pbFoI",
-  authDomain: "delivery-app-1eaea.firebaseapp.com",
-  projectId: "delivery-app-1eaea",
-  storageBucket: "delivery-app-1eaea.appspot.com",
-  messagingSenderId: "726174120186",
-  appId: "1:726174120186:web:0a86e8bf3a53a4fd9cf143",
-  measurementId: "G-YH4BN75XTQ"
-}
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay } from 'swiper';
+import 'swiper/css';
 	
 const GlobalStyle = createGlobalStyle`
   * {margin: 0; padding: 0; color: #333;}
@@ -35,46 +15,131 @@ const GlobalStyle = createGlobalStyle`
 
 const Wrap = styled.div`
   display: block;
-  width: 40vw;
-  min-height: 400px;
-  border: 2px solid #333;
-  border-radius: 20px;
-  margin: 40px auto;
-  padding: 60px;
+`
+
+const Header = styled.div`
+  width: 100%;
+  height: 70px;
+  position: relative;
+  background: #e9dfc4;
+  border-bottom: 1px solid #f6f6f6;
+  padding: 0 60px;
+  box-sizing: border-box;
+  h1 {
+    line-height: 70px;
+  }
+`
+
+const MainSlide = styled.div`
+  width: 600px;
+  height: 387px;
+  margin: 100px auto;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+`
+
+const SlideArrow = styled.div`
+  position: absolute;
+  top: calc(50% - 25px);
+  left: ${(props)=>props.left||null};
+  right: ${(props)=>props.right||null};
+  width: 50px; height: 50px;
+  z-index: 2;
+  cursor: pointer;
+  ::before,::after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 2px;
+    background: #fff;
+    position: absolute;
+    left: calc(50% - 15px);
+    }
+  ::before {
+    top: 13px;
+    transform: ${(props)=>props.left?'rotate(135deg)':'rotate(45deg)'};
+  }
+  ::after {
+    top: 33px;
+    transform: ${(props)=>props.right?'rotate(135deg)':'rotate(45deg)'};
+  }
+`
+
+const SlidePagination = styled.div`
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 20px;
+  z-index: 2;
+  span {
+    width: 12px; height: 12px;
+    background: #999;
+    border-radius: 50%;
+  }
+  .swiper-pagination-bullet-active {
+    background: #fff;
+  }
+`
+
+const LogButton = styled.button`
+  display: block;
+  position: absolute;
+  top: 20px;
+  right: 40px;
 `
 
 const TypingBox = styled.div`
   margin: 0 auto;
-  padding: 0 0 10px 0;
-  border-bottom: 1px solid #333;
+  padding: 60px 60px;
   display: flex;
-  flex-wrap: wrap;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
   span {
-    font-size: 12px;
-    margin: 0 20px 0 0;
+    font-size: 14px;
+    background: #e9dfc4;
+    padding: 6px 8px;
+    border-radius: 12px;
+  }
+  div {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    select {
+      border: 1px solid #ccc;
+      padding: 4px;
+      border-radius: 4px;
+    }
   }
   form {
-    margin: 20px 0 0;
-    width: 100%;
+    width: 50%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    align-items: center;
     gap: 20px;
     input {
       flex: 1;
-      border: none;
+      border: 1px solid #ccc;
+      border-radius: 4px;
       padding: 4px 20px;
-      font-size: 20px;
+      font-size: 14px;
       letter-spacing: 0.04em;
     }
     button {
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 12px;
       background: none;
       border: 1px solid #333;
-      border-radius: 4px;
       padding: 4px 24px;
       :hover {
-        background: #f2f2f2;
-        border-color: #f2f2f2;
+        background: #e9dfc4;
+        border-color: #fff;
       }
     }
   }
@@ -128,63 +193,17 @@ function App() {
 
   //모달창 state
   const [isModal, setIsModal] = useState<boolean>(false)
-
   const toggleModal = () => setIsModal(!isModal)
-  
 
   //firebase
   //참고 url
   //https://guiyomi.tistory.com/123
   //https://velog.io/@zueon/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EA%B5%AC%ED%98%84#%EB%A1%9C%EA%B7%B8%EC%9D%B8%EA%B3%BC-%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85-%EA%B5%AC%ED%98%84
-  const auth = getAuth();
-  const user = auth.currentUser;
-  console.log(user)
-
-  // console.log(user.photoURL);  // 프로필 사진 URL
-  // console.log(user.phoneNumber);  // 휴대폰 번호
-  // console.log(user.metadata);  // 사용자 메타데이터(createdAt, creationTime, lastLoginAt, lastSignInTime)
-  // console.log(user.email);  // 이메일
-  // console.log(user.displayName);  // 표시 이름
-  // console.log(user.emailVerified);  // 이메일 인증 여부(boolean)
-  // console.log(user.isAnonymous);  // 익명 여부(boolean)
-  
-
 
   useEffect(() => {
     getCompanyList()
   },[])
 
-  
-  //회원가입
-//   const join = async (email, password) => {
-//   try {
-//     const auth = getAuth();
-//     const { user } = await createUserWithEmailAndPassword(auth, email, password);
-//     const { stsTokenManager, uid } = user;
-//     setAuthInfo({ uid, email, authToken: stsTokenManager });
-//     navigate('/');
-//   } catch ({ code, message }) {
-//     alert(errorMessage[code]);
-//   }
-// };
-/*
-  const join = async (e) => {
-    e.preventDefault();
-    try {
-      let data;
-      if (newAccount) {
-        // create new Account
-        data = await createUserWithEmailAndPassword(auth, email, password);
-      } else {
-        // log in
-        data = signInWithEmailAndPassword(auth, email, password);
-      }
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  */
   
   //택배회사 받아오기
   const getCompanyList = async() => {
@@ -216,17 +235,55 @@ function App() {
   return (
     <Wrap>
       <GlobalStyle />
-      <button onClick={toggleModal}>로그인/회원가입</button>
+      <Header>
+        <h1>택배를 한눈에! [국내/국제 택배 조회 서비스]</h1>
+        <LogButton onClick={toggleModal}>로그인/회원가입</LogButton>
+      </Header>
+      
       {isModal && <Modal toggleModal={toggleModal}/>}
-      <TypingBox>
-        <span>택배사 선택: </span>
-        <select onChange={handlerSelect}>
-          {companyList?.Company?.map((data, i) => (
-            <option key={i} value={data.Code}>{data.Name}</option>
-          ))}
-        </select>
 
+      <MainSlide>
+        <Swiper 
+          modules={[Navigation, Pagination, Autoplay]} 
+          loop={true}
+          autoplay={{
+            delay: 3000
+          }}
+          slidesPerView={1}
+          navigation={{
+            nextEl: '.next',
+            prevEl: '.prev'
+          }}
+          pagination={{ 
+            el: '.pagination',
+            clickable: true,
+            type: 'bullets'
+          }}
+        >
+         <SlideArrow className="prev" left='30px'/>
+          <SwiperSlide>
+            <img src='./img/img1.jpg' alt="slide"></img>
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src='./img/img2.png' alt="slide"></img>
+          </SwiperSlide>
+
+          <SlideArrow className="next" right='30px'/>
+          <SlidePagination className="pagination" />
+        </Swiper>
+      </MainSlide>
+
+      <TypingBox>
+        <div>
+          <span>택배사 선택</span>
+          <select onChange={handlerSelect}>
+            {companyList?.Company?.map((data, i) => (
+              <option key={i} value={data.Code}>{data.Name}</option>
+            ))}
+          </select>
+        </div>
         <form onSubmit={handlerFormSubmit}>
+          <span>운송장 번호</span>
           <input type="text" value={code} placeholder='운송장 번호를 입력해주세요. (- 없이 입력)' onChange={(e) => setCode(e.target.value)}/>
           <button>조회</button>
         </form>
