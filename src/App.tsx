@@ -7,7 +7,7 @@ import { Navigation, Pagination, Autoplay } from 'swiper';
 import 'swiper/css';
 	
 const GlobalStyle = createGlobalStyle`
-  * {margin: 0; padding: 0; color: #333;}
+  * {margin: 0; padding: 0; color: #f2f2f2;}
   a {text-decoration: none;}
   ul, ol {list-style: none;}
   html, body {font-family: 'Noto Sans KR', sans-serif;}
@@ -15,28 +15,45 @@ const GlobalStyle = createGlobalStyle`
 
 const Wrap = styled.div`
   display: block;
+  background: #13131f;
+
 `
 
 const Header = styled.div`
   width: 100%;
-  height: 70px;
+  height: 90px;
   position: relative;
-  background: #e9dfc4;
-  border-bottom: 1px solid #f6f6f6;
-  padding: 0 60px;
+  padding: 0 300px;
   box-sizing: border-box;
   h1 {
-    line-height: 70px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    line-height: 90px;
+    font-size: 18px;
+    letter-spacing: -0.06em;
+    ::after {
+      content: "";
+      display: block;
+      width: 50%;
+      height: 1px;
+      background: #f2f2f2;
+    }
   }
 `
 
 const MainSlide = styled.div`
-  width: 600px;
-  height: 387px;
-  margin: 100px auto;
+  width: 100%;
+  padding: 0 300px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  height: 700px;
   overflow: hidden;
-  position: relative;
   display: flex;
+  justify-content: center;
+  img { 
+    width: 100%;
+  }
 `
 
 const SlideArrow = styled.div`
@@ -66,53 +83,47 @@ const SlideArrow = styled.div`
   }
 `
 
-const SlidePagination = styled.div`
-  position: absolute;
-  bottom: 20px;
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  gap: 20px;
-  z-index: 2;
-  span {
-    width: 12px; height: 12px;
-    background: #999;
-    border-radius: 50%;
-  }
-  .swiper-pagination-bullet-active {
-    background: #fff;
-  }
-`
-
 const LogButton = styled.button`
   display: block;
   position: absolute;
   top: 20px;
-  right: 40px;
+  right: 340px;
 `
 
 const TypingBox = styled.div`
   margin: 0 auto;
-  padding: 60px 60px;
+  padding: 20px 300px;
+  box-sizing: border-box;
   display: flex;
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
   span {
     font-size: 14px;
-    background: #e9dfc4;
     padding: 6px 8px;
-    border-radius: 12px;
   }
   div {
     width: 50%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: baseline;
     gap: 20px;
     select {
-      border: 1px solid #ccc;
-      padding: 4px;
-      border-radius: 4px;
+      border: none;
+      padding: 8px;
+      border-radius: 12px;
+      background: #282833;
+      ::-webkit-scrollbar {
+          width: 15px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #fff;
+        border-radius: 50px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #13131f;
+      }
+      option {
+        background: #13131f;
+        color: #f2f2f2;
+      }
     }
   }
   form {
@@ -124,22 +135,25 @@ const TypingBox = styled.div`
     gap: 20px;
     input {
       flex: 1;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      padding: 4px 20px;
+      border-radius: 12px;
+      padding: 10px 20px;
       font-size: 14px;
       letter-spacing: 0.04em;
+      background: #282833;
+      color: #f2f2f2;
+      border: none;
+      outline: none;
     }
     button {
       font-size: 14px;
+      font-weight: 700;
       cursor: pointer;
       border-radius: 12px;
-      background: none;
+      background: #cf7437;
       border: 1px solid #333;
-      padding: 4px 24px;
+      padding: 10px 36px;
       :hover {
-        background: #e9dfc4;
-        border-color: #fff;
+        background: #b11717;
       }
     }
   }
@@ -147,17 +161,76 @@ const TypingBox = styled.div`
 
 const InfoBox = styled.div`
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
   margin: 30px 0;
-  flex-direction: column;
+  padding: 40px 300px;
+  box-sizing: border-box;
+  gap: 40px;
+`
+
+const Tracking = styled.ul`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin: 0 0 50px;
+  box-sizing: border-box;
+  li {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    border: 17px solid #cf7437;
+    position: relative;
+    span {
+      display: block;
+      width: 100%;
+      text-align: center;
+      line-height: 65px;
+      color: #fff;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+    }
+    img {
+      position: absolute;
+      top: 50%;
+      right: -10vw;
+      transform: translateY(-50%);
+    }
+  }
+`
+
+const Trace = styled.div`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 13px;
   gap: 20px;
+`
+
+const TraceMenu = styled.ul`
+  width: 100%;
+  display: flex;
+  padding: 0 0 10px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #666;
+  li {
+    width: 20%;
+    text-align: center;
+    font-weight: 700;
+  }
+`
+const TraceInfo = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
   ul {
     display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    gap: 8px;
-    font-size: 13px;
-  }  
+    width: 100%;
+    li {
+      width: 20%;
+      text-align: center;
+    }
+  }
 `
 
 interface CompanyType {
@@ -182,7 +255,7 @@ interface FirstDeliveryInfo {
   trackingDetails: TrackingType[]
 }
 
-function App() {
+const App = () => {
   const [companyList, setCompanyList] = useState<FirstCom>()
   const [deliveryInfo, setDeliveryInfo] = useState<FirstDeliveryInfo>()
   const [code, setCode] = useState('')
@@ -190,6 +263,7 @@ function App() {
   const BaseURL = 'https://info.sweettracker.co.kr/api/v1/'
   const apiKey = 'fwM3wePoMWuqF5k3n1f30Q'
 
+  const [trace, setTrace] = useState(false)
 
   //모달창 state
   const [isModal, setIsModal] = useState<boolean>(false)
@@ -204,7 +278,6 @@ function App() {
     getCompanyList()
   },[])
 
-  
   //택배회사 받아오기
   const getCompanyList = async() => {
     const data = await fetch(`${BaseURL}companylist?t_key=${apiKey}`)
@@ -236,42 +309,10 @@ function App() {
     <Wrap>
       <GlobalStyle />
       <Header>
-        <h1>택배를 한눈에! [국내/국제 택배 조회 서비스]</h1>
+        <h1>나의 택배 찾기 - Delivery inquiry service </h1>
         <LogButton onClick={toggleModal}>로그인/회원가입</LogButton>
       </Header>
-      
       {isModal && <Modal toggleModal={toggleModal}/>}
-
-      <MainSlide>
-        <Swiper 
-          modules={[Navigation, Pagination, Autoplay]} 
-          loop={true}
-          autoplay={{
-            delay: 3000
-          }}
-          slidesPerView={1}
-          navigation={{
-            nextEl: '.next',
-            prevEl: '.prev'
-          }}
-          pagination={{ 
-            el: '.pagination',
-            clickable: true,
-            type: 'bullets'
-          }}
-        >
-         <SlideArrow className="prev" left='30px'/>
-          <SwiperSlide>
-            <img src='./img/img1.jpg' alt="slide"></img>
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src='./img/img2.png' alt="slide"></img>
-          </SwiperSlide>
-
-          <SlideArrow className="next" right='30px'/>
-          <SlidePagination className="pagination" />
-        </Swiper>
-      </MainSlide>
 
       <TypingBox>
         <div>
@@ -284,25 +325,75 @@ function App() {
         </div>
         <form onSubmit={handlerFormSubmit}>
           <span>운송장 번호</span>
-          <input type="text" value={code} placeholder='운송장 번호를 입력해주세요. (- 없이 입력)' onChange={(e) => setCode(e.target.value)}/>
-          <button>조회</button>
+          <input type="text" value={code} placeholder='운송장 번호를 입력해주세요.' onChange={(e) => setCode(e.target.value)}/>
+          <button>조회하기</button>
         </form>
       </TypingBox>
 
-
-      <InfoBox>
+      {deliveryInfo&&<InfoBox>
+        <Tracking>
+          <li>
+            <span>출발전</span>
+            <img src="./public/img/arrow.png"></img>
+          </li>
+          <li>
+            <span>배송중</span>
+            <img src="./public/img/arrow.png"></img>
+          </li>
+          <li>
+            <span>도착완료</span>
+          </li>
+        </Tracking>
+        <Trace>
+          <TraceMenu>
+            <li>배송상태</li>
+            <li>배송기사</li>
+            <li>전화번호</li>
+            <li>배송시간</li>
+            <li>위치</li>
+          </TraceMenu>
+          <TraceInfo>
           {deliveryInfo?.trackingDetails?.map((data, i) => (
             <ul key={i}>
-              <li>배송상태 | {data.kind}</li>
-              {data.manName&&<li>배송기사 | {data.manName}</li>}
-              {data.telno&&<li>전화번호 | {data.telno}</li>}
-              <li>배송시간 | {data.timeString}</li>
-              <li>위치  | {data.where}</li>
+              <li>{data.kind}</li>
+              <li>{data.manName}</li>
+              <li>{data.telno}</li>
+              <li>{data.timeString}</li>
+              <li>{data.where}</li>
             </ul>
           ))}
-      </InfoBox>
+          </TraceInfo>
+        </Trace>
+      </InfoBox>}
+        <MainSlide>
+          <Swiper 
+            modules={[Navigation, Pagination, Autoplay]} 
+            loop={true}
+            autoplay={{
+              delay: 3000
+            }}
+            slidesPerView={1}
+            navigation={{
+              nextEl: '.next',
+              prevEl: '.prev'
+            }}
+            pagination={{ 
+              el: '.pagination',
+              clickable: true,
+              type: 'bullets'
+            }}
+          >
+          <SlideArrow className="prev" left='30px'/>
+            <SwiperSlide>
+              <img src={'./img/img01.png'} alt="slide"></img>
+            </SwiperSlide>
+            <SwiperSlide>
+              <img src={'./img/img02.png'} alt="slide"></img>
+            </SwiperSlide>
+            <SlideArrow className="next" right='30px'/>
+          </Swiper>
+        </MainSlide>
     </Wrap>
   )
 }
-
 export default App
