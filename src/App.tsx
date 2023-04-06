@@ -333,7 +333,7 @@ const App = () => {
       {deliveryInfo&&<InfoBox>
         <Tracking>
           <li>
-            <span>출발전</span>
+            {<span>출발전</span>}
             <img src="./public/img/arrow.png"></img>
           </li>
           <li>
