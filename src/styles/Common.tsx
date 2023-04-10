@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 export const Wrap = styled.div`
   display: block;
@@ -93,6 +93,18 @@ export const Tracking = styled.ul`
   box-sizing: border-box;
 `
 
+const moves = keyframes`
+  0% {
+    background: #f53606;
+  }
+  50% {
+    background: #13131f;
+  }
+  100% {
+    background: #f53606;
+  }
+`
+
 export const CurrentCycle = styled.li`
   width: 65px;
   height: 65px;
@@ -100,12 +112,16 @@ export const CurrentCycle = styled.li`
   border: 17px solid #cf7437;
   ${(props) => props.color&&
   css`
-    border: 17px solid #f53606;
+    animation: ${moves} 6s ease-out infinite;
     padding: 4px;
+    border: 17px solid #f53606;
   `}
   position: relative;
   span {
-    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 100%;
     text-align: center;
     line-height: 65px;

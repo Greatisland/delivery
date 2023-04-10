@@ -56,7 +56,6 @@ const App = () => {
     }
     const data = await fetch(`${BaseURL}trackingInfo?t_code=${delCode}&t_invoice=${code}&t_key=${apiKey}`)
     const json = await data.json()
-    console.log(json)
     if(!json.status && json.complete) {
       setDeliveryInfo(json)
       const lastDetail = await getLastDetail(json)
@@ -112,21 +111,21 @@ const App = () => {
           {curDetail==='출발전'?          
           <Common.CurrentCycle color={curDetail}>
             <span>출발전</span>
-            <img src="./img/arrow.png"></img>
+            <img src={`/img/arrow.png`}></img>
           </Common.CurrentCycle>:
           <Common.CurrentCycle>
             <span>출발전</span>
-            <img src="./img/arrow.png"></img>
+            <img src={`/img/arrow.png`}></img>
           </Common.CurrentCycle>
           }
           {curDetail==='배송중'?          
           <Common.CurrentCycle color={curDetail}>
             <span>배송중</span>
-            <img src="./img/arrow.png"></img>
+            <img src={`/img/arrow.png`}></img>
           </Common.CurrentCycle>:
           <Common.CurrentCycle>
             <span>배송중</span>
-            <img src="./img/arrow.png"></img>
+            <img src={`/img/arrow.png`}></img>
           </Common.CurrentCycle>
           }
           {curDetail==='도착완료'?          
