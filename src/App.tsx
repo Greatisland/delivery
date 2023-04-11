@@ -111,21 +111,21 @@ const App = () => {
           {curDetail==='출발전'?          
           <Common.CurrentCycle color={curDetail}>
             <span>출발전</span>
-            <img src={process.env.PUBLIC_URL + '/img/arrow.png'}></img>
+            <img src={process.env.PUBLIC_URL + 'img/arrow.png'}></img>
           </Common.CurrentCycle>:
           <Common.CurrentCycle>
             <span>출발전</span>
-            <img src={process.env.PUBLIC_URL + '/img/arrow.png'}></img>
+            <img src={process.env.PUBLIC_URL + 'img/arrow.png'}></img>
           </Common.CurrentCycle>
           }
           {curDetail==='배송중'?          
           <Common.CurrentCycle color={curDetail}>
             <span>배송중</span>
-            <img src={process.env.PUBLIC_URL + '/img/arrow.png'}></img>
+            <img src={process.env.PUBLIC_URL + 'img/arrow.png'}></img>
           </Common.CurrentCycle>:
           <Common.CurrentCycle>
             <span>배송중</span>
-            <img src={process.env.PUBLIC_URL + '/img/arrow.png'}></img>
+            <img src={process.env.PUBLIC_URL + 'img/arrow.png'}></img>
           </Common.CurrentCycle>
           }
           {curDetail==='도착완료'?          
