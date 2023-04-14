@@ -35,7 +35,7 @@ const App = () => {
   const [delCode, setDelCode] = useState('04')
   const [curDetail, setCurDetail] = useState('')
   const BaseURL = 'https://info.sweettracker.co.kr/api/v1/'
-  const apiKey = 'fwM3wePoMWuqF5k3n1f30Q'
+  const apiKey = 'bBdVyE4qNftW3ojfkPwbXA'
 
   useEffect(() => {
     getCompanyList()
@@ -111,21 +111,21 @@ const App = () => {
           {curDetail==='출발전'?          
           <Common.CurrentCycle color={curDetail}>
             <span>출발전</span>
-            <img src={process.env.PUBLIC_URL + 'img/arrow.png'}></img>
+            <img src={'./img/arrow.png'}></img>
           </Common.CurrentCycle>:
           <Common.CurrentCycle>
             <span>출발전</span>
-            <img src={process.env.PUBLIC_URL + 'img/arrow.png'}></img>
+            <img src={'./img/arrow.png'}></img>
           </Common.CurrentCycle>
           }
           {curDetail==='배송중'?          
           <Common.CurrentCycle color={curDetail}>
             <span>배송중</span>
-            <img src={process.env.PUBLIC_URL + 'img/arrow.png'}></img>
+            <img src={'./img/arrow.png'}></img>
           </Common.CurrentCycle>:
           <Common.CurrentCycle>
             <span>배송중</span>
-            <img src={process.env.PUBLIC_URL + 'img/arrow.png'}></img>
+            <img src={'./img/arrow.png'}></img>
           </Common.CurrentCycle>
           }
           {curDetail==='도착완료'?          
